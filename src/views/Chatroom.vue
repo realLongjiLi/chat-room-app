@@ -1,20 +1,21 @@
 <template>
   <div class="container">
-    <Navbar @logout="exitChat" />
+    <Navbar />
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar'
 import { useRouter } from 'vue-router'
+import { watch } from 'vue'
+import getProfile from '../composables/getProfile'
 export default {
   setup() {
     const router = useRouter()
-    const exitChat = () => {
-      console.log('logged out')
-      router.push({ name: 'Welcome' })
-    }
-    return { exitChat }
+    const { user } = getProfile()
+    watch(user, () => {
+      if (!user.value) router.push({ name: 'Welcome' })
+    })
   },
   components: { Navbar }
 }

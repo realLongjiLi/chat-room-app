@@ -14,12 +14,11 @@
 import useLogout from '../composables/useLogout'
 import getProfile from '../composables/getProfile'
 export default {
-  setup(props, context) {
+  setup() {
     const { logout, error } = useLogout()
     const { user } = getProfile()
     const logoutHandler = async () => {
       await logout()
-      context.emit('logout')
     }
     return { logout, error, logoutHandler, user }
   }

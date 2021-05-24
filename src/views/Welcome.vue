@@ -33,7 +33,6 @@ export default {
     const router = useRouter()
 
     const enterChat = () => {
-      console.log('entered chat')
       router.push({ name: 'Chatroom' })
     }
 
