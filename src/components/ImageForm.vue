@@ -1,8 +1,23 @@
 <template>
   <div class="upload">
-    <input type="file" @change="onFileChanged" ref="inputFile" />
-    <button @click="onUpload">Upload!</button>
+    <!-- <input type="file" @change="onFileChanged" ref="inputFile" />
+    <button @click="onUpload">Upload!</button> -->
+    <div class="mb-3">
+      <label for="formFile" class="form-label"
+        >Default file input example</label
+      >
+      <input
+        class="form-control"
+        @change="onFileChanged"
+        ref="inputFile"
+        type="file"
+        id="formFile"
+      />
+    </div>
     <div class="error">{{ error }}</div>
+    <div>
+      <button @click="onUpload">Upload!</button>
+    </div>
   </div>
 </template>
 
@@ -15,13 +30,18 @@ export default {
     const file = ref(null)
     const onFileChanged = (event) => {
       file.value = event.target.files[0]
+      console.log(inputFile.value)
     }
     const { error, addItem } = useStorage('images')
     const onUpload = async () => {
       // upload file
+      if (!file.value) {
+        error.value = 'No file to upload yet'
+        return
+      }
       const url = await addItem(file)
       if (!error.value) context.emit('imageUploaded', url.value)
-      inputFile.value = null
+      inputFile.value.value = ''
     }
     return { onFileChanged, onUpload, error, inputFile }
   },
@@ -32,25 +52,13 @@ export default {
 <style scoped>
 .upload {
   padding: 20px;
+  border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
 
 input {
-  width: 100%;
-  padding: 10px;
-
-  outline: none;
-  color: #999;
-  margin: 10px auto;
-}
-span {
-  font-weight: bold;
-  text-decoration: underline;
-  cursor: pointer;
-}
-button {
-  margin: 20px auto;
+  width: 80%;
 }
 </style>

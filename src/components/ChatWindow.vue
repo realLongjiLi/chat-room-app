@@ -7,7 +7,11 @@
         <span class="user">{{ item.user }}</span>
         <span class="message">{{ item.message }}</span>
         <span v-if="item.image != ''">
-          <img class="images" :src="item.image" />
+          <img
+            class="images img-fluid"
+            alt="Responsive image"
+            :src="item.image"
+          />
         </span>
       </div>
     </div>

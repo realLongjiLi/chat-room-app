@@ -36,13 +36,13 @@ export default {
     const imageHandler = async (url) => {
       image.value = url
       const chat = {
-        message: message.value,
+        message: '',
         user: user.value.displayName,
         createdAt: timestamp(),
         image: image.value
       }
-      await addItem(chat)
       image.value = ''
+      await addItem(chat)
     }
     return { message, submitHandler, error, imageHandler }
   },
