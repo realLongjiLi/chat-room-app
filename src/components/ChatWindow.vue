@@ -6,6 +6,9 @@
         <span class="created-at">{{ item.createdAt }}</span>
         <span class="user">{{ item.user }}</span>
         <span class="message">{{ item.message }}</span>
+        <span v-if="item.image != ''">
+          <img class="images" :src="item.image" />
+        </span>
       </div>
     </div>
   </div>
@@ -60,5 +63,11 @@ export default {
 .messages {
   max-height: 400px;
   overflow: auto;
+}
+.images {
+  max-height: 80%;
+  max-width: 80%;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 </style>

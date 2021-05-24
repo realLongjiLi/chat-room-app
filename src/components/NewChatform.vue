@@ -8,6 +8,7 @@
     </textarea>
     <div class="error">{{ error }}</div>
   </form>
+  <ImageForm @imageUploaded="imageHandler" />
 </template>
 
 <script>
@@ -15,22 +16,37 @@ import { ref } from 'vue'
 import getProfile from '../composables/getProfile'
 import { timestamp } from '../firebase/config'
 import useCollection from '../composables/useCollection'
+import ImageForm from '../components/ImageForm'
 export default {
   setup() {
     const message = ref('')
     const { user } = getProfile()
     const { error, addItem } = useCollection('messages')
+    const image = ref('')
     const submitHandler = async () => {
       const chat = {
         message: message.value,
         user: user.value.displayName,
-        createdAt: timestamp()
+        createdAt: timestamp(),
+        image: image.value
+      }
+      message.value = ''
+      await addItem(chat)
+    }
+    const imageHandler = async (url) => {
+      image.value = url
+      const chat = {
+        message: message.value,
+        user: user.value.displayName,
+        createdAt: timestamp(),
+        image: image.value
       }
       await addItem(chat)
-      if (!error.value) message.value = ''
+      image.value = ''
     }
-    return { message, submitHandler, error }
-  }
+    return { message, submitHandler, error, imageHandler }
+  },
+  components: { ImageForm }
 }
 </script>
 

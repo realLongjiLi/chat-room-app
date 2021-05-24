@@ -13,6 +13,7 @@ import { watch } from 'vue'
 import getProfile from '../composables/getProfile'
 import NewChatform from '../components/NewChatform'
 import ChatWindow from '../components/ChatWindow'
+
 export default {
   setup() {
     const router = useRouter()
