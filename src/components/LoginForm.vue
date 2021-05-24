@@ -18,8 +18,8 @@ export default {
     const { error, login } = useLogin()
     const submitHandler = async () => {
       await login(email.value, password.value)
+      context.emit('login')
     }
-    context.emit('login')
     return { email, password, submitHandler, error }
   }
 }

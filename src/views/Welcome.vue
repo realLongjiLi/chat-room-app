@@ -33,6 +33,7 @@ export default {
     const router = useRouter()
 
     const enterChat = () => {
+      console.log('entered chat')
       router.push({ name: 'Chatroom' })
     }
 
@@ -71,6 +72,5 @@ export default {
 }
 .welcome button {
   margin: 20px auto;
-  cursor: pointer;
 }
 </style>
