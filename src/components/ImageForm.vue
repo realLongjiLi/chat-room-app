@@ -3,9 +3,7 @@
     <!-- <input type="file" @change="onFileChanged" ref="inputFile" />
     <button @click="onUpload">Upload!</button> -->
     <div class="mb-3">
-      <label for="formFile" class="form-label"
-        >Default file input example</label
-      >
+      <label for="formFile" class="form-label">Upload your file here</label>
       <input
         class="form-control"
         @change="onFileChanged"
@@ -30,7 +28,6 @@ export default {
     const file = ref(null)
     const onFileChanged = (event) => {
       file.value = event.target.files[0]
-      console.log(inputFile.value)
     }
     const { error, addItem } = useStorage('images')
     const onUpload = async () => {
