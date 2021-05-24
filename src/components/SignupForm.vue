@@ -26,7 +26,7 @@ export default {
 
     const submitHandler = async () => {
       await signup(email.value, password.value, displayName.value)
-      if (!error.value) context.emit('Signup')
+      if (!error.value) context.emit('signup')
     }
 
     return { displayName, email, password, submitHandler, error }
