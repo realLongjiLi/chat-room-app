@@ -10,11 +10,19 @@ const requireAuth = (to, from, next) => {
   } else next()
 }
 
+const requireNoAuth = (to, from, next) => {
+  const { user } = getProfile()
+  if (user.value) {
+    next({ name: 'Chatroom' })
+  } else next()
+}
+
 const routes = [
   {
     path: '/',
     name: 'Welcome',
-    component: Welcome
+    component: Welcome,
+    beforeEnter: requireNoAuth
   },
   {
     path: '/chatroom',

@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { projectFirestore } from '../firebase/config'
 
 const getCollection = (collection) => {
@@ -9,7 +9,7 @@ const getCollection = (collection) => {
     .collection(collection)
     .orderBy('createdAt')
 
-  collectionRef.onSnapshot(
+  const unsub = collectionRef.onSnapshot(
     (snap) => {
       let currItems = []
       snap.docs.forEach((item) => {
@@ -23,6 +23,11 @@ const getCollection = (collection) => {
       error.value = err.message
     }
   )
+
+  watchEffect((onInvalidate) => {
+    // unsubscribe when unmounted
+    onInvalidate(() => unsub())
+  })
 
   return { error, items }
 }
