@@ -7,7 +7,12 @@ const useStorage = (dir) => {
 
   const addItem = async (file) => {
     error.value = null
-    const fileRef = storageRef.child(`${dir}/${file.value.name}`)
+    const fileRef = storageRef.child(
+      `${dir}/${file.value.name}${'_' +
+        Math.random()
+          .toString(36)
+          .substr(2, 9)}`
+    )
     const imgUrl = ref(null)
     try {
       await fileRef.put(file.value)
