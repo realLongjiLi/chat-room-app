@@ -8,23 +8,18 @@ const useStorage = (dir) => {
   const addItem = async (file) => {
     error.value = null
     const fileRef = storageRef.child(
-      `${dir}/${file.value.name}${'_' +
+      `${dir}/${file.name}${'_' +
         Math.random()
           .toString(36)
           .substr(2, 9)}`
     )
     const imgUrl = ref(null)
     try {
-      await fileRef.put(file.value)
+      const res = await fileRef.put(file)
+      imgUrl.value = await res.ref.getDownloadURL()
       error.value = null
     } catch (err) {
       error.value = err.message
-    }
-    try {
-      const res = await fileRef.getDownloadURL()
-      imgUrl.value = res
-    } catch (error) {
-      console.log(error.message)
     }
     return imgUrl
   }

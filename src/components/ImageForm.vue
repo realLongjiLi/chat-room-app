@@ -36,7 +36,7 @@ export default {
         error.value = 'No file to upload yet'
         return
       }
-      const url = await addItem(file)
+      const url = await addItem(file.value)
       if (!error.value) context.emit('imageUploaded', url.value)
       inputFile.value.value = ''
     }
